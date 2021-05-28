@@ -1,16 +1,13 @@
 const express = require('express');
+const http = require("http");
 const app = express();
-
+const server = http.createServer(app);
 
 let mutants = require("./mutants");
 
 app.set('port', process.env.PORT || 3000)
 
 app.use(express.json());
-
-app.get('/',(req, res)=>{
-    res.send(`server on port ${app.get('port')}`);
-});
 
 app.post('/mutant/',(req,res)=>{
     const {dna} = req.body;
@@ -30,6 +27,6 @@ app.post('/mutant/',(req,res)=>{
     res.sendStatus(status);
 });
 
-app.listen(3000, ()=>{
-    console.log(`server on port ${app.get('port')}`);
+server.listen(app.get('port'),()=>{
+    console.log(`server on port ${app.get("port")}`)
 });
